@@ -2,6 +2,22 @@
   <b>Name:</b>
   <%=h @dog.name %>
 </p>
+<p>
+  <b>Breed:</b>
+  <%=h @dog.breed%>
+</p>
+<p>
+  <b>Birthday:</b>
+  <%=h @dog.birthday %>
+</p>
+<p>
+  <b>Date Of Death:</b>
+  <%=h @dog.date_of_death %>
+</p>
+<p>
+  <b>Weight In Grams:</b>
+  <%=h @dog.weight_in_grams %>
+</p>
 
 
 <%= link_to 'Edit', edit_person_dog_path(@person,@dog) %> |

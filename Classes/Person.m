@@ -20,10 +20,18 @@
 }
 
 
-// this will go to the url http://localhost:3000/people/<id>/dogs
+// this will go to the url http://localhost:3000/people/<id>/dogs.xml
 // and return the array of dogs
 -(NSArray *) findAllDogs {
 	return [Dog findRemote:[NSString stringWithFormat:@"%@/%@",personId,@"dogs",nil]];
+}
+
+-(NSArray *) findAllLivingDogs {
+	return [Dog findRemote:[NSString stringWithFormat:@"%@/%@",personId,@"dogs/living",nil]];
+}
+
+-(NSArray *) findAllDeceasedDogs {
+	return [Dog findRemote:[NSString stringWithFormat:@"%@/%@",personId,@"dogs/deceased",nil]];
 }
 
 -(NSArray *) findAllDogsWithResponse:(NSError **)aError {
@@ -32,8 +40,8 @@
 
 - (void) dealloc
 {
-  [createdAt release];
-  [updatedAt release];
+	[createdAt release];
+	[updatedAt release];
 	[name release];
 	[personId release];
 	[super dealloc];

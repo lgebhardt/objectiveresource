@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DogStatus.h"
 
 @class AddDogViewController , Person;
 
@@ -17,13 +18,14 @@
 	NSMutableArray *dogs;
 	AddDogViewController *addController;
 	IBOutlet UITableView *tableView;
-	
+	DogStatus dogStatus;	
 }
 
 @property(nonatomic , retain) Person *owner;
 @property(nonatomic , retain) NSMutableArray *dogs;
 @property(nonatomic , retain) AddDogViewController *addController;
 @property(nonatomic , retain) UITableView *tableView;
+@property(nonatomic) DogStatus dogStatus;
 
 - (void) addDogButtonClicked;
 

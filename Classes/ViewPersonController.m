@@ -10,6 +10,7 @@
 #import "AddPersonViewController.h"
 #import "DogViewController.h"
 #import "Person.h"
+#import "DogStatus.h"
 
 @implementation ViewPersonController
 @synthesize person;
@@ -33,7 +34,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 5;
 }
 
 
@@ -63,7 +64,14 @@
 			cell.text = person.personId;
 			break;
 		case 2:
-			cell.text = @"View Dogs";
+			cell.text = @"View Living Dogs";
+			break;
+		case 3:
+			cell.text = @"View Deceased Dogs";
+			break;
+		case 4:
+			cell.text = @"View All Dogs";
+			break;
 		default:
 			break;
 	}
@@ -72,12 +80,16 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-  	return [[NSArray arrayWithObjects:@"Person's Name",@"Model Id",@"Dogs",nil] 
+  	return [[NSArray arrayWithObjects:@"Person's Name",@"Model Id",@"Living Dogs",@"Deceased Dogs", @"All Dogs", nil] 
 						objectAtIndex:section];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if(indexPath.section == 2) {
+		return indexPath;
+	} else if(indexPath.section == 3) {
+		return indexPath;
+	} else if(indexPath.section == 4) {
 		return indexPath;
 	}
 	return nil;
@@ -88,9 +100,20 @@
 	if(indexPath.section == 2) {
 		DogViewController *aController = [[[DogViewController alloc] initWithNibName:@"DogViewController" bundle:nil] autorelease];
 		aController.owner = person;
+		aController.dogStatus = LIVING;
+		[self.navigationController pushViewController:aController animated:YES];		
+	} else if(indexPath.section == 3) {
+		DogViewController *aController = [[[DogViewController alloc] initWithNibName:@"DogViewController" bundle:nil] autorelease];
+		aController.owner = person;
+		aController.dogStatus = DECEASED;
+		[self.navigationController pushViewController:aController animated:YES];		
+	} else if(indexPath.section == 4) {
+		DogViewController *aController = [[[DogViewController alloc] initWithNibName:@"DogViewController" bundle:nil] autorelease];
+		aController.owner = person;
+		aController.dogStatus = ALL;
 		[self.navigationController pushViewController:aController animated:YES];		
 	}
-
+	
 }
 
 

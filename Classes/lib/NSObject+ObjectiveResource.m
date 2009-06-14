@@ -119,6 +119,87 @@ static ORSResponseFormat _format;
 	return [self findAllRemoteWithResponse:&aError];
 }
 
+//Find with a collection
++ (NSArray *)findAllRemoteWithResponse:(NSError **)aError Collection:(NSString *)collection {
+	Response *res = [Connection get:[self getRemoteCollectionPathCollection:collection] withUser:[[self class] getRemoteUser] andPassword:[[self class]  getRemotePassword]];
+	if([res isError] && aError) {
+		*aError = res.error;
+	}
+	return [self performSelector:[self getRemoteParseDataMethod] withObject:res.body];
+}
+
++ (NSArray *)findAllRemoteCollection:(NSString *)collection {
+	NSError *aError;
+	return [self findAllRemoteWithResponse:&aError Collection:collection];
+}
+
+//Find with Parameter string
++ (NSArray *)findAllRemoteWithResponse:(NSError **)aError ParameterString:(NSString *)parameters {
+	Response *res = [Connection get:[self getRemoteCollectionPathParameterString:parameters] withUser:[[self class] getRemoteUser] andPassword:[[self class]  getRemotePassword]];
+	if([res isError] && aError) {
+		*aError = res.error;
+	}
+	return [self performSelector:[self getRemoteParseDataMethod] withObject:res.body];
+}
+
++ (NSArray *)findAllRemoteParameterString:(NSString *)parameters {
+	NSError *aError;
+	return [self findAllRemoteWithResponse:&aError ParameterString:parameters];
+}
+
+//Find with a collection and Parameter string
++ (NSArray *)findAllRemoteWithResponse:(NSError **)aError Collection:(NSString *)collection ParameterString:(NSString *)parameters {
+	Response *res = [Connection get:[self getRemoteCollectionPathCollection:collection ParameterString:parameters] withUser:[[self class] getRemoteUser] andPassword:[[self class]  getRemotePassword]];
+	if([res isError] && aError) {
+		*aError = res.error;
+	}
+	return [self performSelector:[self getRemoteParseDataMethod] withObject:res.body];
+}
+
++ (NSArray *)findAllRemoteCollection:(NSString *)collection ParameterString:(NSString *)parameters {
+	NSError *aError;
+	return [self findAllRemoteWithResponse:&aError Collection:collection ParameterString:parameters];
+}
+
+//Find with Parameters Dictionary
++ (NSArray *)findAllRemoteWithResponse:(NSError **)aError Parameters:(NSDictionary *)parameters {
+	return [self findAllRemoteWithResponse:aError ParameterString:[self convertParameterDictionaryToString:parameters]];
+}
+
++ (NSArray *)findAllRemoteParameters:(NSDictionary *)parameters {
+	NSError *aError;
+	return [self findAllRemoteWithResponse:&aError Parameters:parameters];
+}
+
+//Find with a collection and Parameter Dictionary
++ (NSArray *)findAllRemoteWithResponse:(NSError **)aError Collection:(NSString *)collection Parameters:(NSDictionary *)parameters {
+	return [self findAllRemoteWithResponse:aError Collection:collection ParameterString:[self convertParameterDictionaryToString:parameters]];
+}
+
++ (NSArray *)findAllRemoteCollection:(NSString *)collection Parameters:(NSDictionary *)parameters {
+	NSError *aError;
+	return [self findAllRemoteWithResponse:&aError Collection:collection Parameters:parameters];
+}
+
++ (NSString *)convertParameterDictionaryToString:(NSDictionary *) parameters {
+	NSMutableString *paramString = [NSMutableString stringWithCapacity:50];
+	
+	Boolean first = true;
+	NSString *key; 
+	for (key in parameters) { 
+		if (first){
+			[paramString appendFormat:@"%@=%@", key, [parameters valueForKey:key]];
+			first = false;
+		}
+		else {
+			[paramString appendFormat:@"&%@=%@", key, [parameters valueForKey:key]];
+		}
+	} 
+	
+	//Encode any spaces. Maybe this should be done on the entire URL and not just the parameter list
+	return [paramString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 + (id)findRemote:(NSString *)elementId withResponse:(NSError **)aError {
 	Response *res = [Connection get:[self getRemoteElementPath:elementId] withUser:[[self class] getRemoteUser] andPassword:[[self class]  getRemotePassword]];
 	if([res isError] && aError) {
@@ -148,6 +229,19 @@ static ORSResponseFormat _format;
 + (NSString *)getRemoteCollectionPath {
 	return [[[self getRemoteSite] stringByAppendingString:[self getRemoteCollectionName]] stringByAppendingString:[self getRemoteProtocolExtension]];
 }
+
++ (NSString *)getRemoteCollectionPathCollection:(NSString *)collection {
+	return [[[[[self getRemoteSite] stringByAppendingString:[self getRemoteCollectionName]] stringByAppendingString:@"/"] stringByAppendingString:collection] stringByAppendingString:[self getRemoteProtocolExtension]];
+}
+
++ (NSString *)getRemoteCollectionPathParameterString:(NSString *)parameters {
+	return [[[[[self getRemoteSite] stringByAppendingString:[self getRemoteCollectionName]] stringByAppendingString:[self getRemoteProtocolExtension]] stringByAppendingString:@"?"] stringByAppendingString:parameters];
+}
+
++ (NSString *)getRemoteCollectionPathCollection:(NSString *)collection ParameterString:(NSString *)parameters {
+	return [[[[[[[self getRemoteSite] stringByAppendingString:[self getRemoteCollectionName]] stringByAppendingString:@"/"] stringByAppendingString:collection] stringByAppendingString:[self getRemoteProtocolExtension]]stringByAppendingString:@"?"] stringByAppendingString:parameters];
+}
+
 
 + (NSString *)getRemoteCollectionPathWithParameters:(NSDictionary *)parameters {
 	return [self populateRemotePath:[self getRemoteCollectionPath] withParameters:parameters];

@@ -16,18 +16,21 @@
 @end
 
 
-
 @implementation Dog
 
-@synthesize name, dogId , createdAt , updatedAt , personId;
+@synthesize name, dogId , createdAt , updatedAt , personId, birthday, dateOfDeath, weightInGrams, breed;
 
 - (void) dealloc
 {
-  [createdAt release];
-  [updatedAt release];
-  [dogId release];
+	[createdAt release];
+	[updatedAt release];
+	[dogId release];
 	[name release];
 	[personId release];
+	[birthday release];
+	[dateOfDeath release];
+	[weightInGrams release];
+	[breed release];
 	[super dealloc];
 }
 

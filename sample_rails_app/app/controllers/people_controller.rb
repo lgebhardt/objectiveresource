@@ -2,7 +2,39 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.xml
   def index
-    @people = Person.find(:all)
+    if params[:dog_count]
+      @people = Person.find(:all, :joins => "INNER JOIN dogs ON dogs.person_id = people.id", :select => "people.*, count(dogs.id) dogs_count", :group => ["dogs.person_id HAVING dogs_count >= ", params[:dog_count]])
+    else
+      @people = Person.find(:all)
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @people }
+      format.json { render :json => @people }
+    end
+  end
+
+  def active
+    if params[:dog_count]
+      @people = Person.active.find(:all, :joins => "INNER JOIN dogs ON dogs.person_id = people.id", :select => "people.*, count(dogs.id) dogs_count", :group => ["dogs.person_id HAVING dogs_count >= ", params[:dog_count]])
+    else
+      @people = Person.active.find(:all)
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @people }
+      format.json { render :json => @people }
+    end
+  end
+
+  def inactive
+    if params[:dog_count]
+      @people = Person.inactive.find(:all, :joins => "INNER JOIN dogs ON dogs.person_id = people.id", :select => "people.*, count(dogs.id) dogs_count", :group => ["dogs.person_id HAVING dogs_count >= ", params[:dog_count]])
+    else
+      @people = Person.inactive.find(:all)
+    end
 
     respond_to do |format|
       format.html # index.html.erb

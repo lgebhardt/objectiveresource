@@ -6,11 +6,44 @@ class DogsController < ApplicationController
   
   # GET /dogs
   # GET /dogs.xml
-  def index
-    @dogs = @person.dogs.all
 
+  def index
+    if params[:breed]
+      @dogs = @person.dogs.find(:all, :conditions => {:breed => params[:breed]})
+    else
+      @dogs = @person.dogs.find(:all)
+    end
+    
     respond_to do |format|
       format.html # index.html.erb
+      format.xml  { render :xml => @dogs }
+      format.json { render :json => @dogs }
+    end
+  end
+
+  def living
+    if params[:breed]
+      @dogs = @person.dogs.living.find(:all, :conditions => {:breed => params[:breed]})
+    else
+      @dogs = @person.dogs.living.find(:all)
+    end
+
+    respond_to do |format|
+      format.html # living.html.erb
+      format.xml  { render :xml => @dogs }
+      format.json { render :json => @dogs }
+    end
+  end
+
+  def deceased
+    if params[:breed]
+      @dogs = @person.dogs.deceased.find(:all, :conditions => {:breed => params[:breed]})
+    else
+      @dogs = @person.dogs.deceased.find(:all)
+    end
+
+    respond_to do |format|
+      format.html # deceased.html.erb
       format.xml  { render :xml => @dogs }
       format.json { render :json => @dogs }
     end

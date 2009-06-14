@@ -11,17 +11,20 @@
 @interface Person : NSObject {
 	
 	NSString *name;
-  NSString *personId;
-  NSDate   *updatedAt;
-  NSDate   *createdAt;
-  
+	NSString *personId;
+//	Boolean	  active;
+	NSDate   *updatedAt;
+	NSDate   *createdAt;
 }
 
 @property (nonatomic , retain) NSDate * createdAt;
 @property (nonatomic , retain) NSDate * updatedAt;
 @property (nonatomic , retain) NSString  *personId;
 @property (nonatomic , retain) NSString *name;
+//@property (nonatomic ) Boolean active;
 
 -(NSArray *) findAllDogs;
 -(NSArray *) findAllDogsWithResponse:(NSError **)aError;
+-(NSArray *) findAllLivingDogs;
+-(NSArray *) findAllDeceasedDogs;
 @end

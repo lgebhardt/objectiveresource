@@ -26,7 +26,17 @@
 }
 
 - (void) loadPeople {
-	self.people = [NSMutableArray arrayWithArray:[Person findAllRemote]];
+//	self.people = [NSMutableArray arrayWithArray:[Person findAllRemote]];
+//	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteCollection:@"active"]];
+//	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteParameterString:@"dog_count=1"]];
+//	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteCollection:@"active" ParameterString:@"dog_count=4"]];
+
+	NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys: @"4", @"dog_count", @"6", @"cat_count", @"sleeping Soundly", @"state of person", nil]; 
+	
+	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteCollection:@"active" Parameters:params]];
+	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteParameters:params]];
+
+	[params release];
 	[tableView reloadData];
 }
 

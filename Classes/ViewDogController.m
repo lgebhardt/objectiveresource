@@ -50,7 +50,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 8;
 }
 
 
@@ -79,10 +79,22 @@
       case 1:
         cell.text = dog.dogId;
         break;
-      case 2:
+	  case 2:
+		cell.text = [dateFormatter stringFromDate:dog.birthday];
+		break;
+	  case 3:
+		cell.text = [dateFormatter stringFromDate:dog.dateOfDeath];
+		break;        
+	  case 4:
+		cell.text = dog.weightInGrams;
+		break;
+	  case 5:
+		cell.text = dog.breed;
+		break;        
+	  case 6:
         cell.text = [dateFormatter stringFromDate:dog.createdAt];
         break;
-      case 3:
+      case 7:
         cell.text = [dateFormatter stringFromDate:dog.updatedAt];
         break;        
       default:
@@ -101,12 +113,24 @@
       return @"Dog's Name";
       break;
     case 1:
-      return @"Model Id";
+      return @"Dog Id";
       break;
     case 2:
+      return @"Birthday";
+	  break;
+	case 3:
+	  return @"Date Of Death";
+	  break;        
+	case 4:
+	  return @"Weight (g)";
+	  break;
+	case 5:
+	  return @"Breed";
+	  break;        
+	case 6:
       return @"Created At";
       break;
-    case 3:
+    case 7:
       return @"Updated At";
       break;        
     default:

@@ -37,6 +37,25 @@ typedef enum {
 // Finders
 + (NSArray *)findAllRemote;
 + (NSArray *)findAllRemoteWithResponse:(NSError **)aError;
+
++ (NSArray *)findAllRemoteCollection:(NSString *)collection;
++ (NSArray *)findAllRemoteWithResponse:(NSError **)aError Collection:(NSString *)collection;
+
++ (NSArray *)findAllRemoteWithResponse:(NSError **)aError ParameterString:(NSString *)parameters;
++ (NSArray *)findAllRemoteParameterString:(NSString *)parameters;
+
++ (NSArray *)findAllRemoteWithResponse:(NSError **)aError Collection:(NSString *)collection ParameterString:(NSString *)parameters;
++ (NSArray *)findAllRemoteCollection:(NSString *)collection ParameterString:(NSString *)parameters;
+
++ (NSArray *)findAllRemoteWithResponse:(NSError **)aError Parameters:(NSDictionary *)parameters;
++ (NSArray *)findAllRemoteParameters:(NSDictionary *)parameters;
+
++ (NSArray *)findAllRemoteWithResponse:(NSError **)aError Collection:(NSString *)collection Parameters:(NSDictionary *)parameters;
++ (NSArray *)findAllRemoteCollection:(NSString *)collection Parameters:(NSDictionary *)parameters;
+
++ (NSString *)convertParameterDictionaryToString:(NSDictionary *) parameters;
+
+	
 + (id)findRemote:(NSString *)elementId;
 + (id)findRemote:(NSString *)elementId withResponse:(NSError **)aError; 
 
@@ -45,6 +64,11 @@ typedef enum {
 + (NSString *)getRemoteCollectionName;
 + (NSString *)getRemoteElementPath:(NSString *)elementId;
 + (NSString *)getRemoteCollectionPath;
+
++ (NSString *)getRemoteCollectionPathCollection:(NSString *)collection;
++ (NSString *)getRemoteCollectionPathParameterString:(NSString *)parameters;
++ (NSString *)getRemoteCollectionPathCollection:(NSString *)collection ParameterString:(NSString *)parameters;
+
 + (NSString *)getRemoteCollectionPathWithParameters:(NSDictionary *)parameters;
 + (NSString *)populateRemotePath:(NSString *)path withParameters:(NSDictionary *)parameters;
 

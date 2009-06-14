@@ -21,7 +21,7 @@
 
 @implementation DogViewController
 
-@synthesize dogs, addController, tableView , owner;
+@synthesize dogs, addController, tableView , owner, dogStatus;
 
 - (void) addDogButtonClicked {
 	Dog	 *newDog = [[[Dog alloc] init] autorelease];
@@ -31,7 +31,15 @@
 }
 
 - (void) loadDogs {
-	self.dogs = [NSMutableArray arrayWithArray:[owner findAllDogs]];
+	if (dogStatus == LIVING) {
+		self.dogs = [NSMutableArray arrayWithArray:[owner findAllLivingDogs]];
+	}
+	else if (dogStatus == DECEASED) {
+		self.dogs = [NSMutableArray arrayWithArray:[owner findAllDeceasedDogs]];
+	}
+	else if (dogStatus == ALL) {
+		self.dogs = [NSMutableArray arrayWithArray:[owner findAllDogs]];
+	}
 	[tableView reloadData];
 }
 
