@@ -10,10 +10,6 @@
 #import "EditDogViewController.h"
 #import "ViewDogController.h"
 
-
-
-
-
 @implementation ViewDogController
 
 @synthesize dog , editDogButton;
@@ -74,28 +70,28 @@
   
     switch (indexPath.section) {
       case 0:
-        cell.text = dog.name;
+		[cell.textLabel setText:dog.name];
         break;
       case 1:
-        cell.text = dog.dogId;
+		[cell.textLabel setText:dog.dogId];
         break;
 	  case 2:
-		cell.text = [dateFormatter stringFromDate:dog.birthday];
+		[cell.textLabel setText:[dateFormatter stringFromDate:dog.birthday]];
 		break;
 	  case 3:
-		cell.text = [dateFormatter stringFromDate:dog.dateOfDeath];
+		[cell.textLabel setText:[dateFormatter stringFromDate:dog.dateOfDeath]];
 		break;        
 	  case 4:
-		cell.text = dog.weightInGrams;
+		[cell.textLabel setText:dog.weightInGrams];
 		break;
 	  case 5:
-		cell.text = dog.breed;
+		[cell.textLabel setText:dog.breed];
 		break;        
 	  case 6:
-        cell.text = [dateFormatter stringFromDate:dog.createdAt];
+        [cell.textLabel setText:[dateFormatter stringFromDate:dog.createdAt]];
         break;
       case 7:
-        cell.text = [dateFormatter stringFromDate:dog.updatedAt];
+        [cell.textLabel setText:[dateFormatter stringFromDate:dog.updatedAt]];
         break;        
       default:
         break;

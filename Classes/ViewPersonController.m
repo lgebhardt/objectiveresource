@@ -15,7 +15,6 @@
 @implementation ViewPersonController
 @synthesize person;
 
-
 - (void)viewDidLoad {
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit 
 																																												 target:self action:@selector(editPersonButtonWasPressed)]; 
@@ -58,19 +57,19 @@
   
 	switch (indexPath.section) {
 		case 0:
-			cell.text = person.name;
+			[cell.textLabel setText:person.name];
 			break;
 		case 1:
-			cell.text = person.personId;
+			[cell.textLabel setText:person.personId];
 			break;
 		case 2:
-			cell.text = @"View Living Dogs";
+			[cell.textLabel setText:@"View Living Dogs"];
 			break;
 		case 3:
-			cell.text = @"View Deceased Dogs";
+			[cell.textLabel setText:@"View Deceased Dogs"];
 			break;
 		case 4:
-			cell.text = @"View All Dogs";
+			[cell.textLabel setText:@"View All Dogs"];
 			break;
 		default:
 			break;
@@ -116,9 +115,8 @@
 	
 }
 
-
-
 - (void)dealloc {
+	[person release];
     [super dealloc];
 }
 

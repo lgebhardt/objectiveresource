@@ -26,17 +26,16 @@
 }
 
 - (void) loadPeople {
-//	self.people = [NSMutableArray arrayWithArray:[Person findAllRemote]];
+	self.people = [NSMutableArray arrayWithArray:[Person findAllRemote]];
 //	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteCollection:@"active"]];
 //	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteParameterString:@"dog_count=1"]];
 //	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteCollection:@"active" ParameterString:@"dog_count=4"]];
 
-	NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys: @"4", @"dog_count", @"6", @"cat_count", @"sleeping Soundly", @"state of person", nil]; 
+//	NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys: @"4", @"dog_count", @"6", @"cat_count", @"sleeping Soundly", @"state of person", nil]; 
 	
-	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteCollection:@"active" Parameters:params]];
-	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteParameters:params]];
+//	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteCollection:@"active" Parameters:params]];
+//	self.people = [NSMutableArray arrayWithArray:[Person findAllRemoteParameters:params]];
 
-	[params release];
 	[tableView reloadData];
 }
 
@@ -70,7 +69,7 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
     }
-    cell.text = ((Person *)[people objectAtIndex:indexPath.row]).name;
+    [cell.textLabel setText:((Person *)[people objectAtIndex:indexPath.row]).name];
     return cell;
 }
 
@@ -97,8 +96,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 - (void)dealloc {
+	[tableView release];
 	[people release];
-  [super dealloc];
+	[super dealloc];
 }
 
 

@@ -52,9 +52,6 @@
 																																												 target:self action:@selector(addDogButtonClicked)]; 
 }
 
-
-
-
 - (void)viewWillAppear:(BOOL)animated {
 	[self loadDogs];
 }
@@ -72,7 +69,7 @@
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero] autorelease];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
-	cell.text = ((Dog *)[dogs objectAtIndex:indexPath.row]).name;
+	[cell.textLabel setText:((Dog *)[dogs objectAtIndex:indexPath.row]).name];
 	return cell;
 }
 
@@ -102,11 +99,11 @@
 #pragma mark cleanup
 - (void)dealloc {
   
+	[owner release];
 	[tableView release];
 	[addController release];
 	[dogs release];
 	[super dealloc];
-
 }
 
 
