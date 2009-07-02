@@ -9,9 +9,6 @@
 #import "AddPersonViewController.h"
 #import "Person.h"
 
-
-
-
 @implementation AddPersonViewController
 @synthesize person , delegate;
 
@@ -40,6 +37,8 @@
 
 
 - (void)dealloc {
+	[delegate release];
+	[person release];
 	[super dealloc];
 }
 
